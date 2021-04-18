@@ -21,7 +21,7 @@ jobs:
           ./ve1/bin/sanity-check-pr --pr-number=${{ github.event.number }}
 
       - uses: actions/github-script@v3
-        if: ${{ steps.sanity_check_pr_content.conclusion == 'success'}}
+        if: ${{ steps.sanity_check_pr_content.outcome == 'success'}}
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
@@ -33,7 +33,7 @@ jobs:
             })
 
       - uses: actions/github-script@v3
-        if: ${{ steps.sanity_check_pr_content.conclusion == 'failure'}}
+        if: ${{ steps.sanity_check_pr_content.outcome == 'failure'}}
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
@@ -42,4 +42,16 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               name: 'ok-to-test'
+            })
+
+      - uses: actions/github-script@v3
+        if: ${{ steps.sanity_check_pr_content.outcome == 'failure'}}
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '👋 Thanks for the PR!  The sanity check has been failed. Please ensure only chart related files have been modified.'
             })
