@@ -45,7 +45,7 @@ jobs:
             })
 
       - uses: actions/github-script@v3
-        if: ${{ steps.sanity_check_pr_content.outcome == 'failure'}}
+        if: ${{ always() && steps.sanity_check_pr_content.outcome == 'failure'}}
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
