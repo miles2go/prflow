@@ -30,7 +30,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              labels: ['ok-to-test']
+              labels: ['sanity-ok']
             })
 
       - uses: actions/github-script@v3
@@ -43,7 +43,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              name: 'ok-to-test'
+              name: 'sanity-ok'
             })
 
       - uses: actions/github-script@v3
