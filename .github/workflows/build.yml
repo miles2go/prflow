@@ -16,3 +16,15 @@ jobs:
         continue-on-error: true
         run: |
           echo "Hi"
+          echo "github.event.number" ${{ github.event.number }}
+
+      - name: Save PR number
+        if: always()
+        run: |
+          mkdir -p ./pr
+          echo ${{ github.event.number }} > ./pr/NR
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: pr
+          path: pr/
