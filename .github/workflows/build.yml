@@ -2,12 +2,12 @@ name: Build and Verify
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
+    types: [opened, synchronize, reopened, ready_for_review, labeled]
 
 jobs:
   build-and-verify:
     runs-on: ubuntu-20.04
-    if: contains(github.event.issue.labels.*.name, 'ok-to-test')
+    if: contains(github.event.pull_request.labels.*.name, 'ok-to-test')
     steps:
       - name: Checkout
         uses: actions/checkout@v2
