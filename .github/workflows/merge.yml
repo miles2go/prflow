@@ -12,4 +12,7 @@ jobs:
 
       - name: Echo branch name
         uses: nelonoel/branch-name@v1.0.1
-        run: echo ${BRANCH_NAME}
+
+      - name: Echo branch name
+        run: |
+          echo ${BRANCH_NAME}
